@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 17, 2019 at 10:28 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.10
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mer. 19 mai 2021 à 06:25
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
-SET sql_mode = "";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -19,282 +19,115 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `his`
+-- Base de données :  `his`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diagnosis`
+-- Structure de la table `diagnosis`
 --
 
-CREATE TABLE `diagnosis` (
-  `diag_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `diagnosis`;
+CREATE TABLE IF NOT EXISTS `diagnosis` (
+  `diag_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `temp` varchar(256) DEFAULT NULL,
   `bp` varchar(256) DEFAULT NULL,
   `presp1` varchar(256) DEFAULT NULL,
   `test_id` int(11) DEFAULT NULL,
   `remarks` varchar(256) DEFAULT NULL,
-  `created` timestamp NULL DEFAULT current_timestamp(),
+  `created` date DEFAULT current_timestamp(),
   `surgery` text DEFAULT NULL,
   `theeth` text DEFAULT NULL,
-  `radio` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `radio` text DEFAULT NULL,
+  PRIMARY KEY (`diag_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `diagnosis`
+-- Déchargement des données de la table `diagnosis`
 --
 
-INSERT INTO `diagnosis` (`diag_id`, `user_id`, `temp`, `bp`, `presp1`, `test_id`, `remarks`, `created`) VALUES
-(2, 11, 'temp', 'bp', 'presp', 0, 'presp', '2019-05-26 09:41:49'),
-(3, 16, 'temp', 'bp', 'presp', 1, 'presp', '2019-07-17 08:14:01');
+INSERT INTO `diagnosis` (`diag_id`, `user_id`, `temp`, `bp`, `presp1`, `test_id`, `remarks`, `created`, `surgery`, `theeth`, `radio`) VALUES
+(4, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-17', 'Soins locaux', '11', 'Retro'),
+(5, 17, 'Kyste', 'Nett + ZnoE', 'Bain de bouche', NULL, 'doit se reposer', '2021-05-17', 'Soins locaux', '27', 'Retro'),
+(6, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-17', 'Soins locaux', '11', 'Retro'),
+(7, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-17', 'Soins locaux', '24', 'Retro'),
+(8, 17, 'Kyste', 'Ca(OH)2FC + ZnoE', 'Para', NULL, 'urgent', '2021-05-18', 'RÃ©section kyste', '26', 'Retro'),
+(9, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-18', 'Soins locaux', '11', 'Retro'),
+(10, 17, 'AlvÃ©olyse/MobilitÃ©', 'Bio + OC', 'Dentifrice', NULL, 'doit se reposer', '2021-05-18', 'DÃ©capuchonage', '33', 'Pas nÃ©cessaire'),
+(11, 18, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-18', 'Soins locaux', '11', 'Retro'),
+(12, 18, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-18', 'Soins locaux', '11', 'Retro'),
+(13, 19, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-18', 'Soins locaux', '11', 'Retro'),
+(14, 19, 'Pulpite', 'Curetage', 'Dentifrice', NULL, 'doit se reposer', '2021-05-18', 'DÃ©capuchonage', '32', 'Retro'),
+(15, 19, 'Pulpo-desmodontique', 'Bio + R4', 'Pas nÃ©cessaire', NULL, 'rien Ã  signaler', '2021-05-18', 'Pas nÃ©cessaire', '48', 'Pas nÃ©cessaire'),
+(16, 17, 'Necrose pulpaire', 'Bio + PulpÃ©ryl', 'Bain de bouche', NULL, 'jgcv', '2021-05-19', 'RÃ©section kyste', '22', 'Pas nÃ©cessaire'),
+(17, 19, 'Parodontite apicale', 'Nett + ZnoE', 'Amox', NULL, 'jgf\r\n', '2021-05-19', 'Soins locaux', '16', 'Retro'),
+(18, 19, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'jck', '2021-05-19', 'Soins locaux', '26', 'Retro');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drug`
+-- Structure de la table `patients`
 --
 
-CREATE TABLE `drug` (
-  `drug_id` int(11) NOT NULL,
-  `name` varchar(11) DEFAULT NULL,
-  `expiry` date DEFAULT NULL,
-  `presp` varchar(256) DEFAULT NULL,
-  `price` int(30) DEFAULT NULL,
-  `qty` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `drug`
---
-
-INSERT INTO `drug` (`drug_id`, `name`, `expiry`, `presp`, `price`, `qty`) VALUES
-(5, 'ARV', '2024-01-01', '10 Per day', 5000, -5),
-(6, 'drug', '2023-01-01', '2 times a day', 5000, 0),
-(7, 'Aspirin', '2019-05-29', '10 Per day', 5000, 0),
-(8, 'Drug1', '2019-06-28', '2 times a day', 5000, 10);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `growth`
---
-
-CREATE TABLE `growth` (
-  `user_id` int(11) NOT NULL,
-  `weight` int(11) NOT NULL,
-  `height` int(11) NOT NULL,
-  `bmi` int(100) NOT NULL DEFAULT '0',
-  `headc` int(100) NOT NULL DEFAULT '0',
-  `gender` varchar(100) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `growth`
---
-
-INSERT INTO `growth` (`user_id`, `weight`, `height`, `bmi`, `headc`, `gender`, `created`) VALUES
-(11, 80, 100, 0, 0, NULL, '2019-05-29 08:50:41'),
-(11, 100, 120, 0, 0, NULL, '2019-05-29 08:50:56'),
-(11, 110, 140, 0, 0, NULL, '2019-05-29 08:51:08'),
-(11, 120, 160, 0, 0, NULL, '2019-05-29 08:55:31'),
-(11, 140, 180, 0, 0, NULL, '2019-05-29 08:56:04'),
-(11, 140, 180, 0, 2, '0', '2019-07-09 14:18:03'),
-(11, 140, 180, 0, 2, NULL, '2019-07-09 14:21:33'),
-(11, 140, 180, 0, 2, NULL, '2019-07-09 14:22:56'),
-(11, 140, 180, 0, 2, NULL, '2019-07-09 14:23:20'),
-(11, 140, 180, 0, 2, 'male', '2019-07-09 14:35:09'),
-(11, 140, 180, 0, 2, 'male', '2019-07-09 14:35:16'),
-(11, 140, 180, 0, 2, 'female', '2019-07-09 14:35:44'),
-(16, 20, 10, 11, 100, 'male', '2019-07-11 07:56:50'),
-(16, 40, 20, 12, 300, 'male', '2019-07-11 07:57:11'),
-(16, 50, 29, 20, 400, 'male', '2019-07-11 07:57:31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `patients`
---
-
-CREATE TABLE `patients` (
-  `user_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `patients`;
+CREATE TABLE IF NOT EXISTS `patients` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(256) DEFAULT NULL,
   `lastname` varchar(256) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` text,
+  `address` text DEFAULT NULL,
   `married` varchar(256) DEFAULT NULL,
   `dor` date DEFAULT NULL,
   `contact` varchar(256) DEFAULT NULL,
   `referred` varchar(256) DEFAULT NULL,
   `reason` varchar(256) DEFAULT NULL,
-  `rdv` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `rdv` date DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `patients`
+-- Déchargement des données de la table `patients`
 --
 
-INSERT INTO `patients` (`user_id`, `firstname`, `lastname`, `dob`, `address`, `married`, `dor`, `contact`, `referred`, `reason`) VALUES
-(16, 'Brian', 'Msyamboza', '2019-01-01', 'P.O. Box 32153', 'married', '2019-07-11', 'Contact', 'Manchester United', 'not interested anymore');
+INSERT INTO `patients` (`user_id`, `firstname`, `lastname`, `dob`, `address`, `married`, `dor`, `contact`, `referred`, `reason`, `rdv`) VALUES
+(17, 'Mariama', 'Ba', '2000-08-08', 'Sipress', 'FÃ©minin', '2021-05-17', '77 545 5665', 'coiffeuse', '5 000', '2021-05-27'),
+(18, 'Moussa', 'Lam', '1996-08-08', 'Plateau', 'Masculin', '2021-05-17', '77 265 5952', 'Fonctionnaire', '5 000', '2021-05-28'),
+(19, 'Cheikh', 'Diop', '1999-02-22', 'Sipress', 'Masculin', '2021-05-18', '77 494 1896', 'chauffeur', '7 000', '2021-05-28');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requisitions`
+-- Structure de la table `users`
 --
 
-CREATE TABLE `requisitions` (
-  `req_id` int(255) NOT NULL,
-  `drug_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` int(11) DEFAULT '0',
-  `email` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `requisitions`
---
-
-INSERT INTO `requisitions` (`req_id`, `drug_id`, `qty`, `created`, `status`, `email`) VALUES
-(167, 5, 1, '2019-05-29 14:41:40', 1, 'brianmsyamboza@gmail.com'),
-(167, 6, 1, '2019-05-29 14:41:40', 1, 'brianmsyamboza@gmail.com'),
-(167, 7, 1, '2019-05-29 14:41:40', 1, 'brianmsyamboza@gmail.com'),
-(236, 7, 1, '2019-05-29 14:53:12', 1, 'brianmsyamboza@gmail.com'),
-(236, 6, 1, '2019-05-29 14:53:12', 1, 'brianmsyamboza@gmail.com'),
-(236, 5, 1, '2019-05-29 14:53:12', 1, 'brianmsyamboza@gmail.com'),
-(235, 7, 1, '2019-05-29 14:55:48', 1, 'brianmsyamboza@gmail.com'),
-(235, 6, 1, '2019-05-29 14:55:48', 1, 'brianmsyamboza@gmail.com'),
-(235, 5, 3, '2019-05-29 14:55:48', 1, 'brianmsyamboza@gmail.com'),
-(56, 7, 3, '2019-05-29 14:56:42', 1, 'brianmsyamboza@gmail.com'),
-(56, 6, 1, '2019-05-29 14:56:42', 1, 'brianmsyamboza@gmail.com'),
-(243, 7, 1, '2019-05-29 14:57:30', 1, 'brianmsyamboza@gmail.com'),
-(136, 7, 3, '2019-05-29 14:58:15', 1, 'brianmsyamboza@gmail.com'),
-(136, 6, 1, '2019-05-29 14:58:15', 1, 'brianmsyamboza@gmail.com'),
-(55, 7, 1, '2019-05-29 19:34:00', 1, 'brianmsyamboza@gmail.com'),
-(182, 5, 1, '2019-05-29 19:36:19', 1, 'brianmsyamboza@gmail.com'),
-(193, 5, 5, '2019-06-28 08:11:00', 0, 'brianmsyamboza@gmail.com'),
-(3, 5, 5, '2019-06-28 08:11:51', 2, 'brianmsyamboza@gmail.com'),
-(131, 5, 5, '2019-06-28 08:13:12', 0, 'brianmsyamboza@gmail.com'),
-(180, 5, 5, '2019-06-28 08:13:38', 0, 'brianmsyamboza@gmail.com'),
-(162, 5, 5, '2019-06-28 08:14:57', 0, 'brianmsyamboza@gmail.com'),
-(193, 5, 5, '2019-06-28 08:16:03', 0, 'brianmsyamboza@gmail.com'),
-(177, 8, 5, '2019-06-28 08:16:18', 0, 'brianmsyamboza@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tests`
---
-
-CREATE TABLE `tests` (
-  `test_id` int(11) NOT NULL,
-  `test_name` varchar(100) NOT NULL,
-  `result` varchar(100) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tests`
---
-
-INSERT INTO `tests` (`test_id`, `test_name`, `result`, `user_id`) VALUES
-(1, 'Malaria', 'Positive', 16),
-(2, 'Malaria', 'Positive', 16),
-(3, 'Malaria', 'Positive', 16),
-(4, 'Malaria', 'Positive', 16),
-(5, 'AIDS', 'negative', 16),
-(6, 'AIDS', 'negative', 16);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` text NOT NULL,
   `password` varchar(256) NOT NULL,
-  `role` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `role` varchar(256) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `role`) VALUES
 (1, '2wise555@gmail.com', '123', 'admin');
 
 --
--- Indexes for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Indexes for table `diagnosis`
+-- Contraintes pour la table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  ADD PRIMARY KEY (`diag_id`);
-
---
--- Indexes for table `drug`
---
-ALTER TABLE `drug`
-  ADD PRIMARY KEY (`drug_id`);
-
---
--- Indexes for table `patients`
---
-ALTER TABLE `patients`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `tests`
---
-ALTER TABLE `tests`
-  ADD PRIMARY KEY (`test_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `diagnosis`
---
-ALTER TABLE `diagnosis`
-  MODIFY `diag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `drug`
---
-ALTER TABLE `drug`
-  MODIFY `drug_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `patients`
---
-ALTER TABLE `patients`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `tests`
---
-ALTER TABLE `tests`
-  MODIFY `test_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `patients` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
