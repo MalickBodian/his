@@ -3,22 +3,22 @@
 <?php include "../../includes/patients/PatientsController.php";
 $patients = new PatientsController();
 $GetPatient = $patients->viewDiag($_GET['id']);
-$patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
+
 ?>
 <div class="container">
     <?= $jumbo->getJumbo("Dossier de " . $patient['firstname'] . " " . $patient['lastname'], "<a href='addDiagnosis.php?id=" . $patient['user_id'] . "'>Ajouter au dossier du patient</a>") ?>
 
     <table class="table table-resposive table-striped table-hover">
         <thead>
-            <th>Nom</th>
-            <th>Date d'enregistrement</th>
-            <th>Diagnostique</th>
-            <th>Traitement</th>
-            <th>Ordonnance</th>
-            <th>Chirurgie</th>
-            <th>Dent concernée</th>
-            <th>Radio</th>
-            <th>Remarques</th>
+            <th id="1">Nom</th>
+            <th id="2">Date d'enregistrement</th>
+            <th id="3">Diagnostique</th>
+            <th id="4">Traitement</th>
+            <th id="5">Ordonnance</th>
+            <th id="6">Chirurgie</th>
+            <th id="7">Dent concernée</th>
+            <th id="8">Radio</th>
+            <th id=""> Remarques</th>
         </thead>
         <tbody>
         <?php 
