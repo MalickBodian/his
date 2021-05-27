@@ -6,7 +6,7 @@ $GetPatient = $patients->getPatient($_GET['id']);
 $patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="container">
-    <?= $jumbo->getJumbo("Ajouter au dossier du patient " .$patient['user_id'] . " " . $patient['firstname'] . " " . $patient['lastname'], "<a href='viewDiag.php?id=" . $patient['user_id'] . "'>Afficher le dossier du patient</a>") ?>
+    <?= $jumbo->getJumbo("Ajouter au dossier du patient " . $patient['firstname'] . " " . $patient['lastname'], "<a href='viewDiag.php?id=" . $patient['user_id'] . "'>Afficher le dossier du patient</a>") ?>
 
     <form role='form' class="addDiag" onsubmit="addDiag()">
         <input name='type' type="hidden" value="addDiag">
@@ -14,10 +14,7 @@ $patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
         <?php if (isset($_GET['t_id'])) : ?>
             <input name='test_id' type="hidden" value=<?= $_GET['t_id'] ?>>
         <?php endif ?>
-        <div class='form-group'>
-            <label for='in_User_id' class="fas fa-pencil"> ID du patient</label>
-            <input name='in_User_id' id="" class='form-control' type='text' placeholder='ID du patient concerné...' required>
-        </div>
+        
         <label for='in_Temp' class="fas fa-diagnoses"> Diagnostique</label>
             <div class='form-group'>
             <select name="in_Temp" id="" class="form-control browser-default">

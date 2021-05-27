@@ -3,41 +3,43 @@
 <?php include "../../includes/patients/PatientsController.php";
 $patients = new PatientsController();
 $GetPatient = $patients->viewDiag($_GET['id']);
-
+$patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="container">
     <?= $jumbo->getJumbo("Dossier de " . $patient['firstname'] . " " . $patient['lastname'], "<a href='addDiagnosis.php?id=" . $patient['user_id'] . "'>Ajouter au dossier du patient</a>") ?>
 
-    <table class="table table-resposive table-striped table-hover">
-        <thead>
-            <th id="1">Nom</th>
-            <th id="2">Date d'enregistrement</th>
-            <th id="3">Diagnostique</th>
-            <th id="4">Traitement</th>
-            <th id="5">Ordonnance</th>
-            <th id="6">Chirurgie</th>
-            <th id="7">Dent concernée</th>
-            <th id="8">Radio</th>
-            <th id=""> Remarques</th>
-        </thead>
-        <tbody>
-        <?php 
-        while($patient = $GetPatient->fetch(PDO::FETCH_ASSOC)){
-        ?>
-        <tr>
-            <td><?= $patient['firstname'] ?> <?= $patient['lastname'] ?></td>
-            <td><?= $patient['created'] ?></td>
-            <td><?= $patient['temp'] ?></td>
-            <td><?= $patient['bp'] ?></td>
-            <td><?= $patient['presp1'] ?></td>
-            <td><?= $patient['surgery'] ?></td>
-            <td><?= $patient['theeth'] ?></td>
-            <td><?= $patient['radio'] ?></td>
-            <td><?= $patient['remarks'] ?></td>
-        </tr>
-        <?php }?>    
-        </tbody>
-    </table>
+    <?php     echo '<table class="table table-resposive table-striped table-hover">';
+        echo "<thead>";
+            echo "<th>Nom</th>";
+            echo "<th>Date d'enregistrement</th>";
+            echo "<th>Diagnostique</th>"; 
+            echo "<th>Traitement</th>"; 
+            echo "<th>Ordonnance</th>"; 
+            echo "<th>Chirurgie</th>"; 
+            echo "<th>Dent concernée</th>";
+            echo "<th>Radio</th>";
+            echo "<th> Remarques</th>";
+        echo "</thead>";
+        echo "<tbody>";
+        
+            foreach($patient as $row=>$patient){
+        
+            echo "<tr>";
+                echo "<td>" . $patient['firstname'] . ' ' . $patient['lastname'] . "</td>"; 
+                echo "<td>" . $patient['created'] . "</td>"; 
+                echo "<td>" . $patient['temp'] . "</td>"; 
+                echo "<td>" . $patient['bp'] . "</td>"; 
+                echo "<td>" . $patient['presp1'] . "</td>"; 
+                echo "<td>" . $patient['surgery'] . "</td>";
+                echo "<td>" . $patient['theeth'] . "</td>";
+                echo "<td>" . $patient['radio'] . "</td>"; 
+                echo "<td>" . $patient['remarks'] . "</td>"; 
+            echo "</tr>";
+        }
+    
+        echo "</tbody>";
+    echo "</table>";
+    ?> 
 </div>
 
 <?php include "../../includes/footer.php"; ?>

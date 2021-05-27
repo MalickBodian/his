@@ -26,6 +26,7 @@
         <label for='in_Married'>Sexe</label>
         <div class='form-group'>
             <select name="in_Married" id="" class="form-control browser-default">
+                <option></option>
                 <option value="Masculin">Masculin</option>
                 <option value="Féminin">Féminin</option>
             </select>
