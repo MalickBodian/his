@@ -37,11 +37,11 @@
         </div>
         <div class='form-group'>
             <label for='in_Referred'>Proffession</label>
-            <input name='in_Referred' id='in_Referred' class='form-control' type='text' placeholder='Proffession...' required>
+            <input name='in_Referred' id='in_Referred' class='form-control' type='text' placeholder='Proffession...'>
         </div>
         <div class='form-group'>
             <label for='in_Reason'>Paiement</label>
-            <input name='in_Reason' id='in_Reason' class='form-control' type='text' placeholder='Paiement...' required>
+            <input name='in_Reason' id='in_Reason' class='form-control' type='text' placeholder='Paiement...'>
         </div>
         <div class='form-group'>
             <label for='in_Rdv'>Date de rendez-vous</label>

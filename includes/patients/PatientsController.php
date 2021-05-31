@@ -40,7 +40,7 @@ if (isset($_POST['type'])) :
             break;
         case "addDiag":
             echo $patients->addDiag(
-                $_POST['id'],
+                $_POST['in_User_id'],
                 $_POST['in_Temp'],
                 $_POST['in_Bp'],
                 $_POST['in_Presp1'],
@@ -142,9 +142,9 @@ class PatientsController
     {
         $db = new DBconnection();
         $dbConn = $db->getConnection();
-        $sql = "INSERT INTO diagnosis (user_id, temp,bp,presp1,surgery,theeth,radio,remarks) VALUES (:id, :temp,:bp,:presp1,:surgery,:theeth,:radio,:remarks)";
+        $sql = "INSERT INTO diagnosis (user_id, temp,bp,presp1,surgery,theeth,radio,remarks) VALUES (:user_id, :temp,:bp,:presp1,:surgery,:theeth,:radio,:remarks)";
         $query = $dbConn->prepare($sql);
-        $query->bindparam(':id', $id);
+        $query->bindparam(':user_id', $id);
         $query->bindparam(':temp', $temp);
         $query->bindparam(':bp', $bp);
         $query->bindparam(':presp1', $presp);
@@ -167,7 +167,7 @@ class PatientsController
         $dbConn = $db->getConnection();
         return $dbConn->query("SELECT patients.*, diagnosis.*
                                 FROM patients
-                                LEFT JOIN diagnosis
+                                RIGHT JOIN diagnosis
                                 ON patients.user_id = diagnosis.user_id 
                                 WHERE patients.user_id = '$id' 
                                 ORDER BY created DESC");
