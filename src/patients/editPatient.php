@@ -2,105 +2,147 @@
 <?php include "../../includes/dao.php" ?>
 <?php include "../../includes/patients/PatientsController.php";
 $patients = new PatientsController();
-$GetPatient = $patients->viewDiag($_GET['id']);
-$patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="container">
-    <?= $jumbo->getJumbo("Modifier les informations de " . $patient['firstname'] . " " . $patient['lastname'] , "<a href='viewPatients.php'>Afficher la liste des patients</a>") ?>
+    <?= $jumbo->getJumbo("Liste des patients", "Visualisation de la liste des patients") ?>
 
-    <form method='POST' class='editP' action='#' onsubmit="editPatient()">
-        <input type="hidden" name="type" value="editPatient" id="">
-        <input type="hidden" name="id" value="<?= $_GET['id'] ?>" id="">
-        <div class='form-group'>
-            <label for='in_Firstname'>Prénom</label>
-            <input name='in_Firstname' value="<?= $patient['firstname'] ?>" id='in_Firstname' class='form-control' type='text' placeholder='Prénom...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Lastname'>Nom</label>
-            <input name='in_Lastname' value="<?= $patient['lastname'] ?>" id='in_Lastname' class='form-control' type='text' placeholder='Nom...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Dob'>Date de naissance</label>
-            <input name='in_Dob' id='in_Dob' value="<?= $patient['dob'] ?>" class='form-control' type='date' placeholder='Date de naissance...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Address'>Addresse</label>
-            <input value='<?= $patient['address'] ?>' name='in_Address' id='in_Address' class=' form-control' rows='5' placeholder='Addresse...'>
-        </div>
-        <label for='in_Married'>Sexe</label>
-        <div class='form-group'>
-            <select name="in_Married" id="" class="form-control browser-default">
-                <option value="Male">Male</option>
-                <option value="Femelle">Femelle</option>
-            </select>
-        </div>
+   
+    <form method="GET">
+        <input type="search" name="q" placeholder="Recherche..." />
+        <input type="submit" value="Valider" />
+    </form>
 
-        <div class='form-group'>
-            <label for='in_Dor'>Date d'enregistrement</label>
-            <input name='in_Dor' id='in_Dor' value="<?= $patient['dor'] ?>" class='form-control' type='date' placeholder="Date d'enregiretrement..." required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Contact'>Contact</label>
-            <input name='in_Contact' id='in_Contact' value="<?= $patient['contact'] ?>" class='form-control' type='text' placeholder='Contact...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Referred'>Proffession</label>
-            <input name='in_Referred' id='in_Referred' class='form-control' type='text' placeholder='Proffession...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Reason'>Paiement</label>
-            <input name='in_Reason' id='in_Reason' class='form-control' type='text' placeholder='Paiement...' required>
-        </div>
-        <div class='form-group'>
-            <label for='in_Rdv'>Date de rendez-vous</label>
-            <input name='in_Rdv' id='in_Rdv' value="<?= $patient['rdv'] ?>" class='form-control' type='date' placeholder='Date de rendez-vous...' required>
-        </div>
+    <?php $patientsList = $patients->viewAllPatients(); ?>
 
-        <div class='form-group'>
-            <input type="submit" value="Confirmer modifications" class="btn btn-success">
-        </div>
+    <table class="table table-responsive table-striped table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Age</th>
+            <th>Addresse</th>
+            <th>Sexe</th>
+            <th>Date d'enregistrement</th>
+            <th>Contact</th>
+            <th>Proffession</th>
+            <th>Date rendez-vous</th>
+            <th>Actions</th>
+        </thead>
+
+
+        <tbody>
+            <?php while ($row = $patientsList->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                <tr>
+                    <td><?= $row['user_id'] ?></td>
+                    <td><?= $row['firstname'] ?></td>
+                    <td><?= $row['lastname'] ?></td>
+                    <td><?= $row['dob'] ?></td>
+                    <td><?= $row['address'] ?></td>
+                    <td><?= $row['married'] ?></td>
+                    <td><?= $row['dor'] ?></td>
+                    <td><?= $row['contact'] ?></td>
+                    <td><?= $row['referred'] ?></td>
+                    <td><?= $row['rdv'] ?></td>
+                    <td><a title="Modifier" href="editPatient.php?id=<?= $row['user_id'] ?>" class="btn btn-sm btn-warning fa fa-pencil"></a> </td>
+                    <td><a title="Afficher le dossier du patient" href="viewDiag.php?id=<?= $row['user_id'] ?>" class="btn btn-sm btn-default fas fa-eye"></a> </td>
+                    <td><a title="Supprimer" class="delete btn btn-danger btn-sm fa fa-trash-o" onclick="Delete(<?= $row['user_id'] ?>)"></a></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+
+    </table>
+
 </div>
+
+
 
 <?php include "../../includes/footer.php"; ?>
 
 
 <script>
-    function editPatient(e) {
+    function Delete(id) {
         event.preventDefault();
-        var form = $('.editP').serialize();
-        $.ajax({
-            type: 'POST',
-            url: '../../includes/patients/PatientsController.php',
-            data: form,
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Requête en cours d'exécution",
-                    type: "info",
-                    timer: 10000,
-                    onBeforeOpen: () => {
-                        Swal.showLoading()
-                        timerInterval = setInterval(() => {}, 100)
+        Swal.fire({
+            title: "Etes-vous de vouloir supprimer le patient " + id + " ?",
+            text: "Cette action sera irréversible!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            animation: true,
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Supprimer!"
+        }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: '../../includes/patients/PatientsController.php',
+                    data: {
+                        type: "deletePatient",
+                        id: id
+                    },
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: "Suppression du patient",
+                            type: "info",
+                            text: "Suppression du patient " + id,
+                            icon: "info",
+                        })
+                    },
+                    success: function(resp) {
+                        if (resp = "success") {
+                            Swal.fire({
+                                text: "Patient supprimé",
+                                type: "success",
+                                showConfirmButton: true,
+                                timer: 10000,
+                                animation: true,
+                            }).then(result => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Erreur",
+                                type: "error",
+                                text: "Erreur " + resp,
+                                icon: "error",
+                                button: "Réessayer",
+                                showConfirmButton: true,
+                            }).then(result => {
+                                window.location.reload();
+                            });
+                        }
                     }
                 });
-            },
-            success: function(resp) {
-                if (resp == "success") {
-                    Swal.fire({
-                        title: "Patient mise à jour",
-                        type: "success",
-                    }).then(result => {
-                        window.history.back();
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Erreur" + resp,
-                        type: "error",
-                    }).then(result => {
-                        window.history.back();
-                    });
-                }
-            },
+            }
+        });
 
-        })
+    }
+
+    
+</script>
+
+
+<div id="publish" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Informations complémentaires</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal(id) {
+        event.preventDefault();
+        $('.modal').modal('show');
+        $('.id').attr("value", id);
     }
 </script>

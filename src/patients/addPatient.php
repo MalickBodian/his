@@ -16,8 +16,8 @@
             <input name='in_Lastname' id='in_Lastname' class='form-control' type='text' placeholder='Nom...' required>
         </div>
         <div class='form-group'>
-            <label for='in_Dob'>Date de naissance</label>
-            <input name='in_Dob' id='in_Dob' class='form-control' type='date' placeholder='Date de naissance...' required>
+            <label for='in_Dob'>Age</label>
+            <input name='in_Dob' id='in_Dob' class='form-control' type='text' placeholder='Age...' required>
         </div>
         <div class='form-group'>
             <label for='in_Address'>Addresse</label>
@@ -40,12 +40,8 @@
             <input name='in_Referred' id='in_Referred' class='form-control' type='text' placeholder='Proffession...'>
         </div>
         <div class='form-group'>
-            <label for='in_Reason'>Paiement</label>
-            <input name='in_Reason' id='in_Reason' class='form-control' type='text' placeholder='Paiement...'>
-        </div>
-        <div class='form-group'>
             <label for='in_Rdv'>Date de rendez-vous</label>
-            <input name='in_Rdv' id='in_Rdv' class='form-control' type='date' placeholder='Date de rendez-vous...' required>
+            <input name='in_Rdv' id='in_Rdv' class='form-control' type='date' placeholder='Date de rendez-vous...'>
         </div>
 
         <div class='form-group'>

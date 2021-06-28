@@ -6,7 +6,7 @@ $GetPatient = $patients->getPatient($_GET['id']);
 $patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
 ?>
 <div class="container">
-    <?= $jumbo->getJumbo("Ajouter au dossier du patient " . $patient['user_id'] ." " . $patient['firstname'] . " " . $patient['lastname'], "<a href='viewDiag.php?id=" . $patient['user_id'] . "'>Afficher le dossier du patient</a>") ?>
+    <?= $jumbo->getJumbo("Ajouter au dossier du patient " .$patient['user_id'] . " " . $patient['firstname'] . " " . $patient['lastname'], "Nouvel ajout au dossier du patient") ?>
 
     <form role='form' class="addDiag" onsubmit="addDiag()">
         <input name='type' type="hidden" value="addDiag">
@@ -175,6 +175,10 @@ $patient = $GetPatient->fetch(PDO::FETCH_ASSOC);
         <div class='form-group'>
             <label for='in_Remarks' class="fas fa-pencil-alt"> Remarques</label>
             <input name='in_Remarks' id='in_Remarks' class='form-control' type='text' placeholder='Remarques...'>
+        </div>
+        <div class='form-group'>
+            <label for='in_Bills' class="fas fa-coins"> Paiements</label>
+            <input name='in_Bills' id='in_Bills' class='form-control' type='text' placeholder='A payer...'>
         </div>
         <div class='form-group'>
             <input type="submit" value="Ajouter le diagnostique" class="btn btn-success">

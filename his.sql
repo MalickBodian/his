@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 19 mai 2021 à 06:25
+-- Généré le :  lun. 28 juin 2021 à 22:08
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -41,30 +41,29 @@ CREATE TABLE IF NOT EXISTS `diagnosis` (
   `surgery` text DEFAULT NULL,
   `theeth` text DEFAULT NULL,
   `radio` text DEFAULT NULL,
+  `bills` text DEFAULT NULL,
   PRIMARY KEY (`diag_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `diagnosis`
 --
 
-INSERT INTO `diagnosis` (`diag_id`, `user_id`, `temp`, `bp`, `presp1`, `test_id`, `remarks`, `created`, `surgery`, `theeth`, `radio`) VALUES
-(4, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-17', 'Soins locaux', '11', 'Retro'),
-(5, 17, 'Kyste', 'Nett + ZnoE', 'Bain de bouche', NULL, 'doit se reposer', '2021-05-17', 'Soins locaux', '27', 'Retro'),
-(6, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-17', 'Soins locaux', '11', 'Retro'),
-(7, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-17', 'Soins locaux', '24', 'Retro'),
-(8, 17, 'Kyste', 'Ca(OH)2FC + ZnoE', 'Para', NULL, 'urgent', '2021-05-18', 'RÃ©section kyste', '26', 'Retro'),
-(9, 17, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-18', 'Soins locaux', '11', 'Retro'),
-(10, 17, 'AlvÃ©olyse/MobilitÃ©', 'Bio + OC', 'Dentifrice', NULL, 'doit se reposer', '2021-05-18', 'DÃ©capuchonage', '33', 'Pas nÃ©cessaire'),
-(11, 18, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-18', 'Soins locaux', '11', 'Retro'),
-(12, 18, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-18', 'Soins locaux', '11', 'Retro'),
-(13, 19, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-18', 'Soins locaux', '11', 'Retro'),
-(14, 19, 'Pulpite', 'Curetage', 'Dentifrice', NULL, 'doit se reposer', '2021-05-18', 'DÃ©capuchonage', '32', 'Retro'),
-(15, 19, 'Pulpo-desmodontique', 'Bio + R4', 'Pas nÃ©cessaire', NULL, 'rien Ã  signaler', '2021-05-18', 'Pas nÃ©cessaire', '48', 'Pas nÃ©cessaire'),
-(16, 17, 'Necrose pulpaire', 'Bio + PulpÃ©ryl', 'Bain de bouche', NULL, 'jgcv', '2021-05-19', 'RÃ©section kyste', '22', 'Pas nÃ©cessaire'),
-(17, 19, 'Parodontite apicale', 'Nett + ZnoE', 'Amox', NULL, 'jgf\r\n', '2021-05-19', 'Soins locaux', '16', 'Retro'),
-(18, 19, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'jck', '2021-05-19', 'Soins locaux', '26', 'Retro');
+INSERT INTO `diagnosis` (`diag_id`, `user_id`, `temp`, `bp`, `presp1`, `test_id`, `remarks`, `created`, `surgery`, `theeth`, `radio`, `bills`) VALUES
+(11, 18, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'urgent', '2021-05-18', 'Soins locaux', '11', 'Retro', NULL),
+(13, 19, 'Carie de l\'email', 'Nett + ZnoE', 'Amox', NULL, 'ras', '2021-05-18', 'Soins locaux', '11', 'Retro', NULL),
+(14, 19, 'Pulpite', 'Curetage', 'Dentifrice', NULL, 'doit se reposer', '2021-05-18', 'DÃ©capuchonage', '32', 'Retro', NULL),
+(15, 19, 'Pulpo-desmodontique', 'Bio + R4', 'Pas nÃ©cessaire', NULL, 'rien Ã  signaler', '2021-05-18', 'Pas nÃ©cessaire', '48', 'Pas nÃ©cessaire', NULL),
+(20, 20, 'Incluse', 'Bio + PulpÃ©ryl', 'Para', NULL, '', '2021-06-13', 'Exo/AlvÃ©olectomie', '24', '', NULL),
+(21, 19, 'Incluse', 'Bio + R4', 'Amox', NULL, '', '2021-06-13', '', '32', '', NULL),
+(22, 21, 'AlvÃ©olyse/MobilitÃ©', 'OCP + DLO', 'Para-AINS', NULL, '', '2021-06-13', 'DÃ©capuchonage', '24', '', NULL),
+(23, 21, '', '', '', NULL, '', '2021-06-14', '', '', '', NULL),
+(24, 22, '', '', '', NULL, '', '2021-06-14', '', '', '', NULL),
+(25, 25, '', '', '', NULL, '', '2021-06-27', '', '', '', NULL),
+(26, 25, '', '', '', NULL, '', '2021-06-27', '', '', '', '5000'),
+(28, 17, '', '', '', NULL, '', '2021-06-27', '', '', '', ''),
+(29, 25, 'Pulpite', 'Ca(OH)2FC + ZnoE', 'Bain de bouche', NULL, 'urgent', '2021-06-28', 'Exo/AlvÃ©olectomie', '14', '', '20000');
 
 -- --------------------------------------------------------
 
@@ -77,25 +76,30 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(256) DEFAULT NULL,
   `lastname` varchar(256) DEFAULT NULL,
-  `dob` date DEFAULT NULL,
+  `dob` text DEFAULT NULL,
   `address` text DEFAULT NULL,
   `married` varchar(256) DEFAULT NULL,
   `dor` date DEFAULT NULL,
   `contact` varchar(256) DEFAULT NULL,
   `referred` varchar(256) DEFAULT NULL,
-  `reason` varchar(256) DEFAULT NULL,
   `rdv` date DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `patients`
 --
 
-INSERT INTO `patients` (`user_id`, `firstname`, `lastname`, `dob`, `address`, `married`, `dor`, `contact`, `referred`, `reason`, `rdv`) VALUES
-(17, 'Mariama', 'Ba', '2000-08-08', 'Sipress', 'FÃ©minin', '2021-05-17', '77 545 5665', 'coiffeuse', '5 000', '2021-05-27'),
-(18, 'Moussa', 'Lam', '1996-08-08', 'Plateau', 'Masculin', '2021-05-17', '77 265 5952', 'Fonctionnaire', '5 000', '2021-05-28'),
-(19, 'Cheikh', 'Diop', '1999-02-22', 'Sipress', 'Masculin', '2021-05-18', '77 494 1896', 'chauffeur', '7 000', '2021-05-28');
+INSERT INTO `patients` (`user_id`, `firstname`, `lastname`, `dob`, `address`, `married`, `dor`, `contact`, `referred`, `rdv`) VALUES
+(17, 'Mariama', 'Ba', '20000808', 'Sipress', 'FÃ©minin', '2021-05-17', '77 545 5665', 'coiffeuse', '2021-05-27'),
+(18, 'Moussa', 'Lam', '19960808', 'Plateau', 'Masculin', '2021-05-17', '77 265 5952', 'Fonctionnaire', '2021-05-28'),
+(19, 'Cheikh', 'Diop', '19990222', 'Sipress', 'Masculin', '2021-05-18', '77 494 1896', 'chauffeur', '2021-05-28'),
+(20, 'Fatma', 'Sarr', '20210531', 'sipress', 'FÃ©minin', '2021-06-13', '77 265 5952', 'coiffeuse', '2021-06-30'),
+(21, 'Martin', 'Max', '20210531', 'plateau', 'Masculin', '2021-06-13', '77 545 5665', 'eleveur', '2021-06-30'),
+(22, 'Malick', 'Ndiaye', '20210531', 'ouakam', 'Masculin', '2021-06-14', '77 693 3803', 'IngÃ©nieur', '2021-07-09'),
+(23, 'fallou', 'mbackÃ©', '20210601', 'ouakam', 'Masculin', '2021-06-27', '234345', '', '2021-06-30'),
+(24, 'binta', 'seck', '20210601', 'QRhg', 'FÃ©minin', '2021-06-27', '77 265 5952', '', '2021-06-30'),
+(25, 'Adja', 'Diallo', '25', 'foire', 'FÃ©minin', '2021-06-27', '77 545 5665', '', '2021-06-09');
 
 -- --------------------------------------------------------
 
